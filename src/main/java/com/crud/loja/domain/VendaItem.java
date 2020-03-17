@@ -27,10 +27,16 @@ public class VendaItem {
 
     private BigDecimal quantidade;
 
+    @Transient
+    private BigDecimal valorTotal;
+
     public VendaItem (Long id, Produto produto, BigDecimal quantidade) {
         this.id = id;
         this.produto = produto;
         this.quantidade = quantidade;
     }
 
+    public BigDecimal getValorTotal(){
+        return produto.getValor().multiply(quantidade);
+    }
 }
