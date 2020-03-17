@@ -1,6 +1,8 @@
 package com.crud.loja.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -8,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,12 +22,8 @@ public class Produto {
 
     private BigDecimal valor;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "produto")
-    List<VendaItem> items = new ArrayList<VendaItem>();
-
-    public Produto() {
-    }
+    List<VendaItem> items = new ArrayList<>();
 
     public Produto(Long id, String descricao, BigDecimal valor) {
         this.id = id;
@@ -30,27 +31,4 @@ public class Produto {
         this.valor = valor;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
 }

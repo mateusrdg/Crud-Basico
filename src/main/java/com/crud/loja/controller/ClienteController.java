@@ -1,11 +1,12 @@
 package com.crud.loja.controller;
 
-import com.crud.loja.domain.Cliente;
+import com.crud.loja.dto.PessoaDto;
 import com.crud.loja.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,19 +17,19 @@ public class ClienteController {
     ClienteService service;
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ResponseEntity<Cliente> find(@PathVariable Long id) {
-        Cliente cliente = service.find(id);
+    public ResponseEntity<PessoaDto> find(@PathVariable Long id) {
+        PessoaDto cliente = service.find(id);
         return ResponseEntity.ok(cliente);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Cliente cliente) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody PessoaDto cliente) {
         service.insert(cliente);
         return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public ResponseEntity<Void> update (@PathVariable Long id, @RequestBody Cliente cliente){
+    public ResponseEntity<Void> update (@PathVariable Long id, @Valid @RequestBody PessoaDto cliente){
         service.update(id, cliente);
         return  ResponseEntity.noContent().build();
     }
@@ -40,8 +41,8 @@ public class ClienteController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Cliente>> findAll(){
-        List<Cliente> clientes = service.findAll();
+    public ResponseEntity<List<PessoaDto>> findAll(){
+        List<PessoaDto> clientes = service.findAll();
         return ResponseEntity.ok(clientes);
     }
 }
